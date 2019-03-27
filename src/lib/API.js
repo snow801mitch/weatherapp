@@ -4,11 +4,9 @@ const location = '37.8267,-122.4233';
 const API_URL = `${proxy}https://api.darksky.net/forecast/${API_KEY}/${location}`;
 
 function getForecast() {
-    fetch(API_URL)
+    return fetch(API_URL)
     .then(response => response.json())
-    .then(result => {
-        console.log(result)
-    });
+
 }
 export default {
     getForecast
