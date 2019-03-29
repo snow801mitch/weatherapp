@@ -27,10 +27,10 @@ export default {
   name: "home",
   data() {
     return {
-      forecast: {}
+      forecast: {},
        icons: {
-        'clear-day': '',
-        'clear-night': '',
+        'clear-day': ['sun'],
+        'clear-night': ['moon'],
         rain: '',
         snow: '',
         sleet: '',
