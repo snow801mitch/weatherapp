@@ -3,13 +3,13 @@
     <div class="row">
       <div clas="col-8 offset-2">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Location" aria-label="Know your weather">
-          <button class="btn btn-outline-secondary" type="button">Submit</button>
-          <div class="input-group-append"> 
+          <input v-modle="location" type="text" class="form-control" placeholder="Enter Location">
+          <div class="input-group-append">
+            <button @click="updateLocation" class="btn btn-outline-secondary" type="button">Search</button>
           </div>
         </div>
       </div>
-      <div class="col-8 offset-2 text-center">
+      <div class="col-8 offset-2 text-center" v-if="forecast">
         <div class="card text-white bg-secondary mb-3">
           <div class="card-header">Current Weather</div>
           <div class="card-body">
@@ -35,26 +35,33 @@ export default {
   name: "home",
   data() {
     return {
-      forecast: {},
-       icons: {
-        'clear-day': '🌞',
-        'clear-night': '🌝',
-        rain: '🌧',
-        snow: '❄',
-        sleet: '☠',
-        wind: '🌬',
-        fog: '⁉',
-        cloudy: '☁',
-        'partly-cloudy-day': '⛅',
-        'partly-cloudy-night': '🌃',
-      },
+      location: "",
+      forecast: null,
+      icons: {
+        "clear-day": "🌞",
+        "clear-night": "🌝",
+        rain: "🌧",
+        snow: "❄",
+        sleet: "☠",
+        wind: "🌬",
+        fog: "⁉",
+        cloudy: "☁",
+        "partly-cloudy-day": "⛅",
+        "partly-cloudy-night": "🌃"
+      }
     };
   },
   mounted() {
     API.getForecast().then(result => {
-      console.log(result);
       this.forecast = result;
     });
+  },
+  methods: {
+    updateLocation() {
+      API.getcoordinates(this.location).then(result => {
+        console.log(result);
+      });
+    }
   }
 };
 </script>
@@ -62,5 +69,9 @@ export default {
 <style>
 .icon-temp {
   font-size: 2em;
+}
+.btn {
+  background-color: yellow;
+  color: brown;
 }
 </style>
