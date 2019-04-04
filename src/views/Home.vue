@@ -3,7 +3,7 @@
     <div class="row">
       <div clas="col-8 offset-2">
         <div class="input-group mb-3">
-          <input v-modle="location" type="text" class="form-control" placeholder="Enter Location">
+          <input v-model="location" type="text" class="form-control" placeholder="Enter Location">
           <div class="input-group-append">
             <button @click="updateLocation" class="btn btn-outline-secondary" type="button">Search</button>
           </div>
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       location: "",
-      forecast: null,
+      forecast: "",
       icons: {
         "clear-day": "🌞",
         "clear-night": "🌝",
@@ -52,14 +52,18 @@ export default {
     };
   },
   mounted() {
-    API.getForecast().then(result => {
-      this.forecast = result;
-    });
+    this.loadWeather('40.2338', '-111.6585');
   },
   methods: {
+    loadWeather(lat, lng) {
+      API.getForecast(lat, lng).then(result => {
+        this.forecast = result;
+      });
+    },
+
     updateLocation() {
-      API.getcoordinates(this.location).then(result => {
-        console.log(result);
+      API.getCoordinates(this.location).then(result => {
+        this.forecast = result;
       });
     }
   }
@@ -72,6 +76,6 @@ export default {
 }
 .btn {
   background-color: yellow;
-  color: brown;
+  color: rgb(23, 61, 215);
 }
 </style>
